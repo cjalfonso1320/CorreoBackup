@@ -1,6 +1,4 @@
-'''
-version 4 CON tabla de base de datos para usuarios admin, que muestre los ultimos backup realizados por todos los usuarios
-'''
+
 import pymysql
 import paramiko
 import tkinter as tk
@@ -61,15 +59,6 @@ def SFTP_conectar():
     sftp = paramiko.SFTPClient.from_transport(transporte)
     return sftp
 
-# def origen(): ##OMITIR SUBCARPETAS
-#     archivos = []
-#     documentos = os.path.join(os.environ["USERPROFILE"], "Documents", "Archivos de Outlook")
-#     for elemento in os.listdir(documentos):
-#         archivo = os.path.join(documentos, elemento)
-#         if os.path.isfile(archivo) and archivo.endswith('.pst'):
-#             archivos.append(archivo)
-#     return archivos
-
 def origen(): ##INCLUIR SUBcarpetas
     archivos = []
     documentos = os.path.join(os.environ["USERPROFILE"], "Documents", "Archivos de Outlook")
@@ -97,22 +86,6 @@ def destino(): ##INCLUIR SUBCARPETAS
                 ruta_destino.append(destino)
     return ruta_destino
 
-# def destino(): ##OMITIR SUBCARPETAS
-#     sftp = SFTP_conectar()
-#     ruta_base = '/shares/Backup/Correos'
-#     sftp.chdir(ruta_base)
-#     ruta_destino = []
-#     try:
-#         sftp.chdir(usuario)
-#     except IOError:
-#         sftp.mkdir(usuario)
-#     documentos = os.path.join(os.environ["USERPROFILE"], "Documents", "Archivos de Outlook")
-#     for elemento in os.listdir(documentos):
-#         archivo = os.path.join(documentos, elemento)
-#         if os.path.isfile(archivo) and archivo.endswith('.pst'):
-#             destino = f'{ruta_base}/{usuario}/{elemento}'
-#             ruta_destino.append(destino)
-#     return ruta_destino
 
 def calcular_tamano_archivos(rutas):
     total_tamano = 0
