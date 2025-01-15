@@ -1,0 +1,9 @@
+vista de control para administradores
+mensaje de que se realizo el backup semanal
+identificacion de archivos iguales en peso (YA)
+
+validar nombre de archivo contra una base de datos para comparar si ya se copio el archivo
+
+archivar o borraR VERSIONES ANTERIORES
+
+contemplar imap
