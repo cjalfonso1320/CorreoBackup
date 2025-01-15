@@ -61,10 +61,18 @@ def SFTP_conectar():
 
 def origen(): ##INCLUIR SUBcarpetas
     archivos = []
-    documentos = os.path.join(os.environ["USERPROFILE"], "Documents", "Archivos de Outlook")
-    for root, dirs, files in os.walk(documentos):
+    documentos_pst = os.path.join(os.environ["USERPROFILE"], "Documents", "Archivos de Outlook")
+    documentos_ost = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Microsoft", "Outlook")
+    
+    #archivos pst
+    for root, dirs, files in os.walk(documentos_pst):
         for file in files:
             if file.endswith('.pst'):
+                archivos.append(os.path.join(root, file))
+    #archivos ost
+    for root, dirs, files in os.walk(documentos_ost):
+        for file in files:
+            if file.endswith('.ost'):
                 archivos.append(os.path.join(root, file))
     return archivos
 
@@ -77,11 +85,21 @@ def destino(): ##INCLUIR SUBCARPETAS
         sftp.chdir(usuario)
     except IOError:
         sftp.mkdir(usuario)
-    documentos = os.path.join(os.environ["USERPROFILE"], "Documents", "Archivos de Outlook")
-    for root, dirs, files in os.walk(documentos):
+    documentos_pst = os.path.join(os.environ["USERPROFILE"], "Documents", "Archivos de Outlook")
+    documentos_ost = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Microsoft", "Outlook")
+    
+    #archovos pst
+    for root, dirs, files in os.walk(documentos_pst):
         for file in files:
             if file.endswith('.pst'):
-                relative_path = os.path.relpath(os.path.join(root, file), documentos)
+                relative_path = os.path.relpath(os.path.join(root, file), documentos_pst)
+                destino = f'{ruta_base}/{usuario}/{relative_path}'
+                ruta_destino.append(destino)
+    #archivo ost
+    for root, dirs, files in os.walk(documentos_ost):
+        for file in files:
+            if file.endswith('.ost'):
+                relative_path = os.path.relpath(os.path.join(root, file), documentos_ost)
                 destino = f'{ruta_base}/{usuario}/{relative_path}'
                 ruta_destino.append(destino)
     return ruta_destino
