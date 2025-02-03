@@ -13,9 +13,9 @@ usuario = os.getlogin()
 def conectar_bd():
     try:
         conn = pymysql.connect(
-            host='10.10.10.55',
-            user='bd_digicom',
-            password='Samuel0426*-',
+            host='192.168.40.181',
+            user='bases_digicom',
+            password='@DIGICOM2025*',
             database='correo'
         )
         print("conexion establecida")
